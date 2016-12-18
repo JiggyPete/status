@@ -16,3 +16,7 @@ OK, first off, we need to get a page served up from rails and get all the pieces
 My intention at this point is to hardcode status messages in the UI taking an outside-in approach.
 
 Later as we go we'll move the status messages back into rails.
+
+
+OK, we've now got all the necessary info for the view coming from the status_controller. At this point the controller is assigning @current_status and @previous_statuses. These are making use of a handy Struct prior to worrying about Active Record or migrations.
+
