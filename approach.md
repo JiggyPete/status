@@ -34,3 +34,5 @@ Next we need to be able to curl and :create and :update a status item.
 Example curl commands are available on the UI.
 
 The last thing to do is validate the input that arrives in the controller from curl.
+
+With a sprinkling of class names it should be easy enough to make the page presentable, much as the brief said not to worry about it. I may sneak some more of that in if I can find time, currently I'm past the four hour limit.
