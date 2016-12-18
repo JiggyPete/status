@@ -91,4 +91,68 @@ RSpec.describe StatusController, type: :controller do
       end
     end
   end
+
+  describe 'POST create' do
+    context 'successful request' do
+      it 'stores a new status item' do
+        post :create, format: :json, state: 'UP', message: 'All working'
+        expect(StatusItem.count).to eq(1)
+        expect(StatusItem.first.state).to eq('UP')
+        expect(StatusItem.first.message).to eq('All working')
+      end
+
+      it 'gives a successful response' do
+        post :create, format: :json, state: 'UP', message: 'All working'
+        expect(response.body).to eq({status: 200, id: StatusItem.last.id}.to_json)
+      end
+    end
+
+    context 'unsuccessful request' do
+      it 'gives a 500' do
+        allow_any_instance_of(StatusItem).to receive(:save).and_return(false)
+        post :create, format: :json, state: 'UP', message: 'Not working'
+        expect(response.body).to eq({status: 500}.to_json)
+      end
+    end
+  end
+
+  describe 'PUT update' do
+    let(:status_item) { StatusItem.create state: 'UP', message: 'All working' }
+    context 'successful request' do
+      it 'updates state' do
+        put :update, format: :json, id: status_item.id, state: 'DOWN'
+
+        status_item.reload
+        expect(status_item.state).to eq('DOWN')
+      end
+
+      it 'updates message' do
+        put :update, format: :json, id: status_item.id, message: 'All good!'
+
+        status_item.reload
+        expect(status_item.message).to eq('All good!')
+      end
+
+      it 'updates both state and message' do
+        put :update, format: :json, id: status_item.id, state: 'DOWN', message: 'All good!'
+
+        status_item.reload
+        expect(status_item.state).to eq('DOWN')
+        expect(status_item.message).to eq('All good!')
+      end
+
+      it 'gives a successful response' do
+        put :update, format: :json, id: status_item.id, message: 'All good!'
+        expect(response.body).to eq({status: 200}.to_json)
+      end
+    end
+
+    context 'unsuccessful request' do
+      it 'gives a 500' do
+        allow_any_instance_of(StatusItem).to receive(:update).and_return(false)
+        put :update, format: :json, id: status_item.id, message: 'All good!'
+        expect(response.body).to eq({status: 500}.to_json)
+      end
+    end
+  end
 end

@@ -29,3 +29,6 @@ Being able to retrieve the most recent (current) StatusItem from the databse, an
 
 
 Spotted a edgecase in the view. There was no code to handle the situation where the @current_status is nil.
+
+Next we need to be able to curl and :create and :update a status item.
+Example curl commands are available on the UI.
