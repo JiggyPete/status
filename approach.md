@@ -20,3 +20,6 @@ Later as we go we'll move the status messages back into rails.
 
 OK, we've now got all the necessary info for the view coming from the status_controller. At this point the controller is assigning @current_status and @previous_statuses. These are making use of a handy Struct prior to worrying about Active Record or migrations.
 
+
+Next up we need to replace the Status Struct with an ActiveRecord model, StatusItem.
+Interestingly Status is already a module in Rails and we can't use that name.

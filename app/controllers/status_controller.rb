@@ -18,9 +18,7 @@ class StatusController < ApplicationController
 
   private
 
-  Status = Struct.new(:state, :message, :created_at)
-
   def new_status
-    Status.new('UP', 'All systems are fully operational.', Time.now)
+    StatusItem.new(state: 'UP', message: 'All systems are fully operational.', created_at: Time.now, updated_at: Time.now)
   end
 end
