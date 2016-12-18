@@ -23,3 +23,6 @@ OK, we've now got all the necessary info for the view coming from the status_con
 
 Next up we need to replace the Status Struct with an ActiveRecord model, StatusItem.
 Interestingly Status is already a module in Rails and we can't use that name.
+
+Now I'm going to try and finish up the front half of the logic for the application.
+Being able to retrieve the most recent StatusItem from the databse, and the previous 10.
