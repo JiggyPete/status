@@ -1,21 +1,13 @@
 <h1>Status</h1>
 
 <h2>Current Status</h2>
-<div>
-  <div><%= @current_status.state %></div>
-  <div><%= @current_status.message %></div>
-  <div><%= @current_status.created_at %></div>
-</div>
+<%= render 'status_item', status: @current_status %>
 
 <h2>Previous Status</h2>
 <ul>
   <% @previous_statuses.each do |status| %>
     <li>
-      <div>
-        <div><%= status.state %></div>
-        <div><%= status.message %></div>
-        <div><%= status.created_at %></div>
-      </div>
+      <%= render 'status_item', status: status %>
     </li>
   <% end %>
 </ul>
