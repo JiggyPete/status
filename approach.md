@@ -26,3 +26,6 @@ Interestingly Status is already a module in Rails and we can't use that name.
 
 Now I'm going to try and finish up the front half of the logic for the application.
 Being able to retrieve the most recent (current) StatusItem from the databse, and the previous 10.
+
+
+Spotted a edgecase in the view. There was no code to handle the situation where the @current_status is nil.

@@ -1,13 +1,19 @@
 <h1>Status</h1>
 
-<h2>Current Status</h2>
-<%= render 'status_item', status: @current_status %>
+<% if @current_status.nil? %>
+  Awaiting status info
+<% else %>
 
-<h2>Previous Status</h2>
-<ul>
-  <% @previous_statuses.each do |status| %>
-    <li>
-      <%= render 'status_item', status: status %>
-    </li>
-  <% end %>
-</ul>
+  <h2>Current Status</h2>
+  <%= render 'status_item', status: @current_status %>
+
+  <h2>Previous Status</h2>
+  <ul>
+    <% @previous_statuses.each do |status| %>
+      <li>
+        <%= render 'status_item', status: status %>
+      </li>
+    <% end %>
+  </ul>
+
+<% end %>
