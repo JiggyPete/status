@@ -97,3 +97,8 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+def create_status_item(args={})
+  default_args = {state: 'UP', message: 'Great Success'}
+  StatusItem.create(default_args.merge(args))
+end

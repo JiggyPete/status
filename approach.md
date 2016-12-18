@@ -32,3 +32,5 @@ Spotted a edgecase in the view. There was no code to handle the situation where 
 
 Next we need to be able to curl and :create and :update a status item.
 Example curl commands are available on the UI.
+
+The last thing to do is validate the input that arrives in the controller from curl.

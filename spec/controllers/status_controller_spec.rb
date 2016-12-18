@@ -14,7 +14,7 @@ RSpec.describe StatusController, type: :controller do
     end
 
     context 'when one StatusItem exists' do
-      let!(:status_item) { StatusItem.create }
+      let!(:status_item) { create_status_item }
       before { get :index }
 
       it { expect(assigns[:current_status]).to eq(status_item) }
@@ -22,10 +22,10 @@ RSpec.describe StatusController, type: :controller do
     end
 
     context 'when many StatusItem exists' do
-      let!(:status_last_week) { StatusItem.create updated_at: 1.week.ago}
-      let!(:status_last_month) { StatusItem.create updated_at: 1.month.ago }
-      let!(:status_today) { StatusItem.create updated_at: Time.now }
-      let!(:status_yesterday) { StatusItem.create updated_at: Date.yesterday }
+      let!(:status_last_week) { create_status_item updated_at: 1.week.ago}
+      let!(:status_last_month) { create_status_item updated_at: 1.month.ago }
+      let!(:status_today) { create_status_item updated_at: Time.now }
+      let!(:status_yesterday) { create_status_item updated_at: Date.yesterday }
 
       it 'the most recently updated is the current_status' do
         get :index
@@ -41,7 +41,7 @@ RSpec.describe StatusController, type: :controller do
         context 'when there are 10 status items' do
           before do
             number_of_items_to_create = 10 - StatusItem.count
-            number_of_items_to_create.times{ StatusItem.create updated_at: 1.year.ago }
+            number_of_items_to_create.times{ create_status_item updated_at: 1.year.ago }
             get :index
           end
 
@@ -58,7 +58,7 @@ RSpec.describe StatusController, type: :controller do
         context 'when there are 11 status items' do
           before do
             number_of_items_to_create = 11 - StatusItem.count
-            number_of_items_to_create.times{ StatusItem.create updated_at: 1.year.ago }
+            number_of_items_to_create.times{ create_status_item updated_at: 1.year.ago }
             get :index
           end
 
@@ -75,7 +75,7 @@ RSpec.describe StatusController, type: :controller do
         context 'when there are 12 status items' do
           before do
             number_of_items_to_create = 12 - StatusItem.count
-            number_of_items_to_create.times{ StatusItem.create updated_at: 1.year.ago }
+            number_of_items_to_create.times{ create_status_item updated_at: 1.year.ago }
             get :index
           end
 
@@ -117,7 +117,7 @@ RSpec.describe StatusController, type: :controller do
   end
 
   describe 'PUT update' do
-    let(:status_item) { StatusItem.create state: 'UP', message: 'All working' }
+    let(:status_item) { create_status_item state: 'UP', message: 'All working' }
     context 'successful request' do
       it 'updates state' do
         put :update, format: :json, id: status_item.id, state: 'DOWN'
