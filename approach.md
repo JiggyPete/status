@@ -5,8 +5,14 @@ The idea here is to give you more of an insight into what was the thinking while
 - Create a github repo.
 - Create a basic rails app.
 - Pull in our favourite unit testing library.
-- Deploy to heroku.
+- Deploy to heroku. (I appreciate the requirements says not to, the reason for doing this is it would be how I treat a production project.)
 - Need to go through the requirements and potentially create a todo list.
-- Investigate other status pages.
+- Investigate other status pages. ([Litmus](https://status.litmus.com/), [GitHub](https://status.github.com/))
 
 - take it from there.
+
+
+OK, first off, we need to get a page served up from rails and get all the pieces into the UI that are necessary.
+My intention at this point is to hardcode status messages in the UI taking an outside-in approach.
+
+Later as we go we'll move the status messages back into rails.
