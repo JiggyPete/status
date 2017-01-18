@@ -117,10 +117,16 @@ RSpec.describe StatusController, type: :controller do
     end
 
     context 'unsuccessful request' do
-      it 'gives a 500' do
-        allow_any_instance_of(StatusItem).to receive(:save).and_return(false)
-        post :create, format: :json, state: 'UP', message: 'Not working'
-        expect(response.body).to eq({status: 500}.to_json)
+      it 'gives a 500 and errors' do
+        post :create, format: :json, state: 'something else', message: nil
+        json = JSON.parse response.body
+        expect(json['status']).to eq(500)
+
+        expected_errors = [
+          "State needs to be UP or DOWN",
+          "Message can't be blank"
+        ]
+        expect(json['errors']).to eq(expected_errors)
       end
     end
   end
@@ -166,10 +172,16 @@ RSpec.describe StatusController, type: :controller do
     end
 
     context 'unsuccessful request' do
-      it 'gives a 500' do
-        allow_any_instance_of(StatusItem).to receive(:update).and_return(false)
-        put :update, format: :json, id: status_item.id, message: 'All good!'
-        expect(response.body).to eq({status: 500}.to_json)
+      it 'gives a 500 and errors' do
+        put :update, format: :json, id: status_item.id, message: nil, state: 'something else'
+        json = JSON.parse response.body
+        expect(json['status']).to eq(500)
+
+        expected_errors = [
+          "State needs to be UP or DOWN",
+          "Message can't be blank"
+        ]
+        expect(json['errors']).to eq(expected_errors)
       end
     end
   end

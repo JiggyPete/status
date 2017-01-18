@@ -14,7 +14,7 @@ class StatusController < ApplicationController
     if @status_item.save
       render json: {status: 200, status_item: @status_item}.to_json
     else
-      render json: {status: 500}.to_json
+      render json: {status: 500, errors: @status_item.errors.full_messages}.to_json
     end
   end
 
@@ -23,7 +23,7 @@ class StatusController < ApplicationController
     if status_item.update fields_to_update(params)
       render json: {status: 200, status_item: status_item}.to_json
     else
-      render json: {status: 500}.to_json
+      render json: {status: 500, errors: status_item.errors.full_messages}.to_json
     end
   end
 
@@ -31,8 +31,8 @@ class StatusController < ApplicationController
 
   def fields_to_update(params)
     result = {}
-    result[:state] = params[:state] if params[:state].present?
-    result[:message] = params[:message] if params[:message].present?
+    result[:state] = params[:state] if params.key?(:state)
+    result[:message] = params[:message] if params.key?(:message)
     result
   end
 end
