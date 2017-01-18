@@ -1,4 +1,6 @@
 class StatusController < ApplicationController
+  http_basic_authenticate_with name: Rails.application.secrets.auth_username, password: Rails.application.secrets.auth_password, only: [:create, :update]
+
   NUMBER_OF_CURRENT_ITEMS_TO_DISPLAY = 1
   NUMBER_OF_PREVIOUS_ITEMS_TO_DISPLAY = 10
   NUMBER_OF_ITEMS_TO_DISPLAY = NUMBER_OF_CURRENT_ITEMS_TO_DISPLAY + NUMBER_OF_PREVIOUS_ITEMS_TO_DISPLAY

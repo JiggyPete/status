@@ -19,14 +19,14 @@
 
 <div>
   <h2>
-    cURL API examples:
+    cURL API examples: Please update the username and password 🚀
   </h2>
   <p>
     <strong>Create a status message:</strong>
-      curl --data "state=UP&message=All systems are running." <%= base_url %>/status.json
+      curl -u username:password --data "state=UP&message=All systems are running." <%= base_url %>/status.json
     </p>
   <p>
     <strong>Update a status message:</strong>
-    curl -X PUT --data "id=28&state=DOWN&message=We are experiencing issues with the flux capacitor." <%= base_url %>/status.json
+    curl -u username:password -X PUT --data "id=28&state=DOWN&message=We are experiencing issues with the flux capacitor." <%= base_url %>/status.json
   </p>
 </div>
