@@ -101,9 +101,18 @@ RSpec.describe StatusController, type: :controller do
         expect(StatusItem.first.message).to eq('All working')
       end
 
+      it 'provides a status_item in the json response' do
+        post :create, format: :json, state: 'UP', message: 'All working'
+        json = JSON.parse response.body
+        expect(json["status_item"]['id']).to eq(StatusItem.first.id)
+        expect(json["status_item"]['state']).to eq('UP')
+        expect(json["status_item"]['message']).to eq('All working')
+      end
+
       it 'gives a successful response' do
         post :create, format: :json, state: 'UP', message: 'All working'
-        expect(response.body).to eq({status: 200, id: StatusItem.last.id}.to_json)
+        json = JSON.parse response.body
+        expect(json['status']).to eq(200)
       end
     end
 
@@ -143,7 +152,16 @@ RSpec.describe StatusController, type: :controller do
 
       it 'gives a successful response' do
         put :update, format: :json, id: status_item.id, message: 'All good!'
-        expect(response.body).to eq({status: 200}.to_json)
+        json = JSON.parse response.body
+        expect(json['status']).to eq(200)
+      end
+
+      it 'provides a status_item in the json response' do
+        put :update, format: :json, id: status_item.id, state: 'DOWN', message: 'Struggling!'
+        json = JSON.parse response.body
+        expect(json["status_item"]['id']).to eq(status_item.id)
+        expect(json["status_item"]['state']).to eq('DOWN')
+        expect(json["status_item"]['message']).to eq('Struggling!')
       end
     end
 

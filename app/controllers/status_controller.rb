@@ -10,28 +10,20 @@ class StatusController < ApplicationController
   end
 
   def create
-    respond_to do |format|
-      format.json do
-        @status_item = StatusItem.new state: params[:state], message: params[:message]
-        if @status_item.save
-          render json: {status: 200, id: @status_item.id}.to_json
-        else
-          render json: {status: 500}.to_json
-        end
-      end
+    @status_item = StatusItem.new state: params[:state], message: params[:message]
+    if @status_item.save
+      render json: {status: 200, status_item: @status_item}.to_json
+    else
+      render json: {status: 500}.to_json
     end
   end
 
   def update
-    respond_to do |format|
-      format.json do
-        status_item = StatusItem.find(params[:id])
-        if status_item.update fields_to_update(params)
-          render json: {status: 200}.to_json
-        else
-          render json: {status: 500}.to_json
-        end
-      end
+    status_item = StatusItem.find(params[:id])
+    if status_item.update fields_to_update(params)
+      render json: {status: 200, status_item: status_item}.to_json
+    else
+      render json: {status: 500}.to_json
     end
   end
 
